@@ -1,0 +1,11 @@
+package ua.schoolreader.version1.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import ua.schoolreader.version1.entity.TaskPupil;
+
+import java.util.List;
+
+public interface TaskPupilRepo extends JpaRepository<TaskPupil,Integer>{
+    List<TaskPupil> findAllByPupil_Username(String surname);
+
+}
