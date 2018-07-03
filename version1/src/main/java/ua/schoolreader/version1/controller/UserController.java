@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ua.schoolreader.version1.entity.Pupil;
 import ua.schoolreader.version1.repositories.UserRepo;
+import ua.schoolreader.version1.service.PupilServiceBean;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/secured/userApi")
-@PreAuthorize("hasAuthority('USER')")
 public class UserController {
 
 
     @Autowired
-    private UserRepo repo;
+    private PupilServiceBean repo;
 
 
     @RequestMapping(name = "/all",produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
