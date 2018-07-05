@@ -14,13 +14,15 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 
-CREATE TABLE public.task (
-    task_id integer NOT NULL,
-    description character varying
+CREATE TABLE public.SR_TASK (
+    SRTA_ID integer NOT NULL,
+    DESCRIPTION character varying,
+     CREATE_DATE  timestamp(0) without time zone NOT NULL DEFAULT now(),
+    UPDATE_DATE  timestamp(0) without time zone NOT NULL DEFAULT now()
 );
 
 
-ALTER TABLE public.task OWNER TO postgres;
+ALTER TABLE public.SR_TASK OWNER TO postgres;
 
 CREATE SEQUENCE public.task_task_id_seq
     AS integer
@@ -35,16 +37,16 @@ ALTER TABLE public.task_task_id_seq OWNER TO postgres;
 
 
 
-ALTER SEQUENCE public.task_task_id_seq OWNED BY public.task.task_id;
+ALTER SEQUENCE public.task_task_id_seq OWNED BY public.SR_TASK.SRTA_ID;
 
 
 
-ALTER TABLE ONLY public.task ALTER COLUMN task_id SET DEFAULT nextval('public.task_task_id_seq'::regclass);
+ALTER TABLE ONLY public.SR_TASK ALTER COLUMN SRTA_ID SET DEFAULT nextval('public.task_task_id_seq'::regclass);
 
 
-SELECT pg_catalog.setval('public.task_task_id_seq', 2, true);
+SELECT pg_catalog.setval('public.task_task_id_seq', 1, true);
 
 
-ALTER TABLE ONLY public.task
-    ADD CONSTRAINT task_pkey PRIMARY KEY (task_id);
+ALTER TABLE ONLY public.SR_TASK
+    ADD CONSTRAINT task_pkey PRIMARY KEY (SRTA_ID);
 

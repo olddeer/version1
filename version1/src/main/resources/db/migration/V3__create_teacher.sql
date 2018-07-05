@@ -14,19 +14,23 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 
-CREATE TABLE public.teacher (
-    teacher_id integer NOT NULL,
-    name character varying(255) NOT NULL,
-    first_name character varying(255) NOT NULL,
-    email character varying(255) NOT NULL,
-    phone character varying(15) NOT NULL
+CREATE TABLE public.SR_TEACHER (
+    SRT_ID integer NOT NULL,
+    NAME character varying(255) NOT NULL,
+    SURNAME character varying(255) NOT NULL,
+    EMAIL character varying(255) NOT NULL,
+    PHONE character varying(15) NOT NULL,
+    CREATE_DATE  timestamp(0) without time zone NOT NULL DEFAULT now(),
+    UPDATE_DATE  timestamp(0) without time zone NOT NULL DEFAULT now(),
+    USERNAME character varying(255) NOT NULL ,
+    PASSWORD character varying(255) NOT NULL
 );
 
 
-ALTER TABLE public.teacher OWNER TO postgres;
+ALTER TABLE public.SR_TEACHER OWNER TO postgres;
 
 
-CREATE SEQUENCE public.teacher_teacher_id_seq
+CREATE SEQUENCE public.teacher_teacher_id_seq2
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -35,23 +39,23 @@ CREATE SEQUENCE public.teacher_teacher_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.teacher_teacher_id_seq OWNER TO postgres;
+ALTER TABLE public.teacher_teacher_id_seq2 OWNER TO postgres;
 
 
-ALTER SEQUENCE public.teacher_teacher_id_seq OWNED BY public.teacher.teacher_id;
+ALTER SEQUENCE public.teacher_teacher_id_seq2 OWNED BY public.SR_TEACHER.SRT_ID;
 
 
-ALTER TABLE ONLY public.teacher ALTER COLUMN teacher_id SET DEFAULT nextval('public.teacher_teacher_id_seq'::regclass);
-
-
-
-SELECT pg_catalog.setval('public.teacher_teacher_id_seq', 1, true);
+ALTER TABLE ONLY public.SR_TEACHER ALTER COLUMN SRT_ID SET DEFAULT nextval('public.teacher_teacher_id_seq2'::regclass);
 
 
 
+SELECT pg_catalog.setval('public.teacher_teacher_id_seq2', 1, true);
 
-ALTER TABLE ONLY public.teacher
-    ADD CONSTRAINT teacher_pkey PRIMARY KEY (teacher_id);
+
+
+
+ALTER TABLE ONLY public.SR_TEACHER
+    ADD CONSTRAINT teacher_pkey2 PRIMARY KEY (SRT_ID);
 
 
 

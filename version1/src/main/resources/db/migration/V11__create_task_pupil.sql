@@ -22,16 +22,18 @@ CREATE TYPE public.status_task AS ENUM (
 
 ALTER TYPE public.status_task OWNER TO postgres;
 
-CREATE TABLE public.task_pupil (
-    task_pupil_id integer NOT NULL,
-    pupil_id integer NOT NULL,
-    task_id integer NOT NULL,
-    count integer NOT NULL,
-    status public.status_task DEFAULT 'In_progress'::public.status_task
+CREATE TABLE public.SR_TASK_PUPIL (
+    SRT_P_ID integer NOT NULL,
+   SRP_ID integer NOT NULL,
+    SRTA_ID integer NOT NULL,
+    COUNT integer NOT NULL,
+   STATUS public.status_task DEFAULT 'In_progress'::public.status_task,
+     CREATE_DATE  timestamp(0) without time zone NOT NULL DEFAULT now(),
+    UPDATE_DATE  timestamp(0) without time zone NOT NULL DEFAULT now()
 );
 
 
-ALTER TABLE public.task_pupil OWNER TO postgres;
+ALTER TABLE public.SR_TASK_PUPIL OWNER TO postgres;
 
 
 CREATE SEQUENCE public.task_pupil_task_pupil_id_seq
@@ -46,18 +48,18 @@ CREATE SEQUENCE public.task_pupil_task_pupil_id_seq
 ALTER TABLE public.task_pupil_task_pupil_id_seq OWNER TO postgres;
 
 
-ALTER SEQUENCE public.task_pupil_task_pupil_id_seq OWNED BY public.task_pupil.task_pupil_id;
+ALTER SEQUENCE public.task_pupil_task_pupil_id_seq OWNED BY public.SR_TASK_PUPIL.SRT_P_ID;
 
 
-ALTER TABLE ONLY public.task_pupil ALTER COLUMN task_pupil_id SET DEFAULT nextval('public.task_pupil_task_pupil_id_seq'::regclass);
+ALTER TABLE ONLY public.SR_TASK_PUPIL ALTER COLUMN SRT_P_ID SET DEFAULT nextval('public.task_pupil_task_pupil_id_seq'::regclass);
 
 SELECT pg_catalog.setval('public.task_pupil_task_pupil_id_seq', 4, true);
 
-ALTER TABLE ONLY public.task_pupil
-    ADD CONSTRAINT task_pupil_pkey PRIMARY KEY (task_pupil_id);
+ALTER TABLE ONLY public.SR_TASK_PUPIL
+    ADD CONSTRAINT task_pupil_pkey PRIMARY KEY (SRT_P_ID);
 
-ALTER TABLE ONLY public.task_pupil
-    ADD CONSTRAINT task_pupil_pupil_id_fkey FOREIGN KEY (pupil_id) REFERENCES public.pupil(pupil_id);
-ALTER TABLE ONLY public.task_pupil
-    ADD CONSTRAINT task_pupil_task_id_fkey FOREIGN KEY (task_id) REFERENCES public.task(task_id);
+ALTER TABLE ONLY public.SR_TASK_PUPIL
+    ADD CONSTRAINT task_pupil_pupil_id_fkey FOREIGN KEY (SRP_ID) REFERENCES public.SR_PUPIL(SRP_ID);
+ALTER TABLE ONLY public.SR_TASK_PUPIL
+    ADD CONSTRAINT task_pupil_task_id_fkey FOREIGN KEY (SRTA_ID) REFERENCES public.SR_TASK(SRTA_ID);
 
