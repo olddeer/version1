@@ -19,7 +19,7 @@ SET default_with_oids = false;
 
 
 CREATE TABLE public.SR_CLASS (
-    SRC_ID integer NOT NULL,
+    SRC_ID serial NOT NULL,
     TITLE character varying(255),
      CREATE_DATE  timestamp(0) without time zone NOT NULL DEFAULT now(),
     UPDATE_DATE  timestamp(0) without time zone NOT NULL DEFAULT now()
@@ -32,28 +32,6 @@ ALTER TABLE public.SR_CLASS OWNER TO postgres;
 -- TOC entry 197 (class 1259 OID 16558)
 -- Name: class_class_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
-
-CREATE SEQUENCE public.class_class_id_seq2
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.class_class_id_seq2 OWNER TO postgres;
-
-
-ALTER SEQUENCE public.class_class_id_seq2 OWNED BY public.SR_CLASS.SRC_ID;
-
-
-
-
-ALTER TABLE ONLY public.SR_CLASS ALTER COLUMN SRC_ID SET DEFAULT nextval('public.class_class_id_seq2'::regclass);
-
-
-SELECT pg_catalog.setval('public.class_class_id_seq2', 1, true);
 
 
 

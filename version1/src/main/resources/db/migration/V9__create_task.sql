@@ -15,7 +15,7 @@ SET default_with_oids = false;
 
 
 CREATE TABLE public.SR_TASK (
-    SRTA_ID integer NOT NULL,
+    SRTA_ID serial NOT NULL,
     DESCRIPTION character varying,
      CREATE_DATE  timestamp(0) without time zone NOT NULL DEFAULT now(),
     UPDATE_DATE  timestamp(0) without time zone NOT NULL DEFAULT now()
@@ -23,28 +23,6 @@ CREATE TABLE public.SR_TASK (
 
 
 ALTER TABLE public.SR_TASK OWNER TO postgres;
-
-CREATE SEQUENCE public.task_task_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.task_task_id_seq OWNER TO postgres;
-
-
-
-ALTER SEQUENCE public.task_task_id_seq OWNED BY public.SR_TASK.SRTA_ID;
-
-
-
-ALTER TABLE ONLY public.SR_TASK ALTER COLUMN SRTA_ID SET DEFAULT nextval('public.task_task_id_seq'::regclass);
-
-
-SELECT pg_catalog.setval('public.task_task_id_seq', 1, true);
 
 
 ALTER TABLE ONLY public.SR_TASK

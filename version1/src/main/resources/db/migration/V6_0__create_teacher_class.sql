@@ -15,33 +15,15 @@ SET default_with_oids = false;
 
 
 CREATE TABLE public.SR_TEACHER_CLASS (
-    SRT_C_ID integer NOT NULL,
-    SRT_ID integer NOT NULL,
-    SRC_ID integer NOT NULL,
+    SRT_C_ID serial NOT NULL,
+    SRT_ID serial NOT NULL,
+    SRC_ID serial NOT NULL,
     CREATE_DATE  timestamp(0) without time zone NOT NULL DEFAULT now(),
     UPDATE_DATE  timestamp(0) without time zone NOT NULL DEFAULT now()
 );
 ALTER TABLE public.SR_TEACHER_CLASS OWNER TO postgres;
 
-CREATE SEQUENCE public.teacher_class_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
 
-
-ALTER TABLE public.teacher_class_id_seq OWNER TO postgres;
-
-
-ALTER SEQUENCE public.teacher_class_id_seq OWNED BY public.SR_TEACHER_CLASS.SRT_C_ID;
-
-ALTER TABLE ONLY public.SR_TEACHER_CLASS ALTER COLUMN SRT_C_ID SET DEFAULT nextval('public.teacher_class_id_seq'::regclass);
-
-
-
-SELECT pg_catalog.setval('public.teacher_class_id_seq', 1, true);
 
 
 ALTER TABLE ONLY public.SR_TEACHER_CLASS
