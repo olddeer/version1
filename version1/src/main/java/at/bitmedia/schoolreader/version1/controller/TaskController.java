@@ -20,7 +20,7 @@ public class TaskController {
     @Autowired
     TaskServiceBean taskPup;
 
-    @RequestMapping(value = "/all",produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    @RequestMapping(value = "/all",produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public  ResponseEntity<List<Task>> allTasks(){
 return new ResponseEntity<List<Task>>(taskPup.findAll(), HttpStatus.OK) ;
     }
