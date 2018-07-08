@@ -11,13 +11,23 @@ import java.time.LocalDateTime;
 public class TeacherClass {
     @Id
     @Column(name = "SRT_C_ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int taskPupilId;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "SRT_ID")
     @JsonIgnore
     private Teacher teacher;
-
+    @PrePersist
+    public void prePersistDate() {
+        if(create_date  == null &&  update_date == null) //We set default value in case if the value is not set yet.
+            create_date  = LocalDateTime.now();
+        update_date =create_date;
+    }
+    @PreUpdate
+    public void preUpdateDate() {
+        update_date = LocalDateTime.now();
+    }
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "SRC_ID")
     @JsonIgnore

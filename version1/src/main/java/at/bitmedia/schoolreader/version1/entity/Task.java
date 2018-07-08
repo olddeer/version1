@@ -10,11 +10,21 @@ import java.util.Set;
 public class Task {
     @Id
     @Column(name = "SRTA_ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int taskId;
     private String description;
     @OneToMany(mappedBy = "task")
     private Set<TaskPupil> tasksPupil = new HashSet<>();
-
+    @PrePersist
+    public void prePersistDate() {
+        if(create_date  == null &&  update_date == null) //We set default value in case if the value is not set yet.
+            create_date  = LocalDateTime.now();
+        update_date =create_date;
+    }
+    @PreUpdate
+    public void preUpdateDate() {
+        update_date = LocalDateTime.now();
+    }
     public Task(int taskId, String description) {
         this.taskId = taskId;
         this.description = description;

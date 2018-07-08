@@ -10,14 +10,25 @@ import java.util.Set;
 public class Class {
     @Id
     @Column(name = "SRC_ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int classId;
 
     @OneToMany(mappedBy = "class2")
     private Set<TeacherClass> tasksPupil = new HashSet<>();
     @Column(name = "CREATE_DATE")
-    private LocalDateTime create_date;
+    private  LocalDateTime create_date;
     @Column(name = "UPDATE_DATE")
     private LocalDateTime update_date;
+    @PrePersist
+    public void prePersistDate() {
+        if(create_date  == null &&  update_date == null) //We set default value in case if the value is not set yet.
+            create_date  = LocalDateTime.now();
+        update_date =create_date;
+    }
+    @PreUpdate
+    public void preUpdateDate() {
+        update_date = LocalDateTime.now();
+    }
 
     public LocalDateTime getCreate_date() {
         return create_date;

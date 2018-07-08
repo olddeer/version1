@@ -7,10 +7,20 @@ import java.time.LocalDateTime;
 @Table(name ="SR_RESULT")
 public class Result {
     @Id
-    @Column(name = "SRR_ID")
+    @Column(name ="srr_id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int resultId;
 
-
+    @PrePersist
+    public void prePersistDate() {
+        if(create_date  == null &&  update_date == null) //We set default value in case if the value is not set yet.
+            create_date  = LocalDateTime.now();
+        update_date =create_date;
+    }
+    @PreUpdate
+    public void preUpdateDate() {
+        update_date = LocalDateTime.now();
+    }
     @JoinColumn(name = "SRT_P_ID")
     @ManyToOne(fetch = FetchType.EAGER)
     private TaskPupil taskPupil;
